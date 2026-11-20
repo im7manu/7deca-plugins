@@ -91,12 +91,12 @@ test('búsqueda de direcciones: Nominatim sin clave, Pelias con clave, Google y 
   assert.equal(coords[0].fuente, 'coordenadas');
 });
 
-test('los archivos compartidos son iguales que en facturador-plugins', async (t) => {
+test('los archivos compartidos son iguales que en 7factura-plugins', async (t) => {
   const fs = await import('node:fs');
-  const otro = new URL('../../facturador-plugins/rutas/', import.meta.url);
-  if (!fs.existsSync(otro)) return t.skip('falta ../facturador-plugins');
+  const otro = [new URL('../../7factura-plugins/rutas/', import.meta.url), new URL('../../facturador-plugins/rutas/', import.meta.url)].find((u) => fs.existsSync(u)) || new URL('../../7factura-plugins/rutas/', import.meta.url);
+  if (!fs.existsSync(otro)) return t.skip('falta ../7factura-plugins');
   for (const f of ['lib/proveedores.mjs', 'ui/mapa.js']) {
-    assert.equal(fs.readFileSync(new URL(`../rutas/${f}`, import.meta.url), 'utf8'), fs.readFileSync(new URL(f, otro), 'utf8'), `${f} es distinto en facturador-plugins`);
+    assert.equal(fs.readFileSync(new URL(`../rutas/${f}`, import.meta.url), 'utf8'), fs.readFileSync(new URL(f, otro), 'utf8'), `${f} es distinto en 7factura-plugins`);
   }
 });
 

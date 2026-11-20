@@ -7,7 +7,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const REPO = process.env.REPO || 'im7manu/gestor-deca-plugins';
+const REPO = process.env.REPO || 'im7manu/7deca-plugins';
 const raiz = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const dist = path.join(raiz, 'dist');
 fs.mkdirSync(dist, { recursive: true });

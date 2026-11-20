@@ -1,6 +1,6 @@
 # Plugins de 7DeCA
 
-Plugins oficiales de [7DeCA](https://github.com/im7manu/gestor-deca-ecmr) (versión 1.5.0 o posterior). Se instalan desde la página **Plugins** de la aplicación (solo administradores), que lee el `registry.json` de este repositorio.
+Plugins oficiales de [7DeCA](https://github.com/im7manu/7deca) (versión 1.5.0 o posterior). Se instalan desde la página **Plugins** de la aplicación (solo administradores), que lee el `registry.json` de este repositorio.
 
 | Plugin | Qué hace |
 |---|---|
@@ -16,7 +16,7 @@ Plugins oficiales de [7DeCA](https://github.com/im7manu/gestor-deca-ecmr) (versi
 
 En 7DeCA, como administrador: **Plugins** → *Disponibles* → **Instalar**. La aplicación descarga el paquete de la *Release* y comprueba su SHA-256 con el de `registry.json`. Las actualizaciones aparecen en la misma página.
 
-Sin conexión: descarga el `.tar.gz` de la [Release](https://github.com/im7manu/gestor-deca-plugins/releases) y súbelo en *Instalar desde un archivo*.
+Sin conexión: descarga el `.tar.gz` de la [Release](https://github.com/im7manu/7deca-plugins/releases) y súbelo en *Instalar desde un archivo*.
 
 Los plugins y sus datos se guardan en la carpeta `data/` de la instalación: las actualizaciones de la aplicación no los borran.
 
@@ -35,7 +35,7 @@ Las pruebas (`npm test`) necesitan 7DeCA 1.5.0 clonado al lado (`../gestor-deca-
 
 ## Crear un plugin
 
-Mira [`docs/plugins.md`](https://github.com/im7manu/gestor-deca-ecmr/blob/main/docs/plugins.md) en el repositorio de la aplicación.
+Mira [`docs/plugins.md`](https://github.com/im7manu/7deca/blob/main/docs/plugins.md) en el repositorio de la aplicación.
 
 ## Licencia
 

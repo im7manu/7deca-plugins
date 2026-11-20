@@ -1,4 +1,4 @@
-// Plugins de 7DeCA contra un 7DeCA real (../gestor-deca-ecmr) con datos temporales.
+// Plugins de 7DeCA contra un 7DeCA real (../7deca) con datos temporales.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn, execFileSync } from 'node:child_process';
@@ -8,7 +8,7 @@ import path from 'node:path';
 import { smtpSink } from './smtp-sink.mjs';
 
 const RAIZ = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
-const DECA = path.resolve(RAIZ, '../gestor-deca-ecmr');
+const DECA = ['7deca', 'gestor-deca-ecmr'].map((x) => path.resolve(RAIZ, '..', x)).find((p) => fs.existsSync(p)) || path.resolve(RAIZ, '../7deca');
 const EX = ['--exclude=test', '--exclude=.bin', '--exclude=node_modules/@img', '--exclude=node_modules/sharp', '--exclude=node_modules/@types', '--exclude=*.d.ts', '--exclude=*.map'];
 const paquete = (id) => { const f = path.join(os.tmpdir(), `${id}-${Date.now()}.tar.gz`); execFileSync('tar', ['-czf', f, ...EX, '-C', path.join(RAIZ, id), '.'], { env: { ...process.env, COPYFILE_DISABLE: '1' } }); return fs.readFileSync(f); };
 
@@ -29,7 +29,7 @@ function cliente(base) {
   };
 }
 
-test('plugins de 7DeCA', { skip: !fs.existsSync(path.join(DECA, 'plugins.js')) && 'falta ../gestor-deca-ecmr 1.5.0' }, async () => {
+test('plugins de 7DeCA', { skip: !fs.existsSync(path.join(DECA, 'plugins.js')) && 'falta ../7deca 1.5.0' }, async () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'deca-plugins-'));
   const P = 9341, BASE = `http://127.0.0.1:${P}`;
   const srv = await arrancar(dir, P);

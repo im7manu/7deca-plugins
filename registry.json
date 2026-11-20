@@ -7,9 +7,9 @@
       "descripcion": "Mapas en 7DeCA: busca las ubicaciones o pon sus coordenadas, muestra la ruta de cada envío (camión o coche, evitando peajes, autopistas o ferris) y guarda los km para facturarlos por kilómetro en 7Factura. OpenRouteService por defecto o Google Maps con tu clave.",
       "autor": "im7manu",
       "app_min": "1.5.0",
-      "url": "https://github.com/im7manu/gestor-deca-plugins/releases/download/rutas-v1.0.0/rutas-1.0.0.tar.gz",
+      "url": "https://github.com/im7manu/7deca-plugins/releases/download/rutas-v1.0.0/rutas-1.0.0.tar.gz",
       "sha256": "deaeb8282d97ddcf61a279cb32533e6f0c608025f155fc23c42f77b52549eb28",
-      "repo": "https://github.com/im7manu/gestor-deca-plugins/tree/main/rutas"
+      "repo": "https://github.com/im7manu/7deca-plugins/tree/main/rutas"
     }
   ]
 }
