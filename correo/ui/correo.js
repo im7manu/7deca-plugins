@@ -1,4 +1,4 @@
-// Plugin «Envío por correo» — interfaz en Gestor DeCA y eCMR.
+// Plugin «Envío por correo» — interfaz en 7DeCA.
 (function () {
   const D = window.DECA;
   if (!D) return;

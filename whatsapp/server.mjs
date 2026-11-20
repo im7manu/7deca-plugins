@@ -1,4 +1,4 @@
-// Plugin «WhatsApp Web» para Gestor DeCA y eCMR: envía el PDF oficial del documento al WhatsApp del conductor desde
+// Plugin «WhatsApp Web» para 7DeCA: envía el PDF oficial del documento al WhatsApp del conductor desde
 // el número de la empresa vinculado como WhatsApp Web. Su sesión es propia (carpeta del plugin) y no usa ni toca el
 // puente de WhatsApp de recuperación de contraseñas (WHATSAPP_API).
 import { crearWhatsApp, normalizarTelefono, rellenar } from './lib/whatsapp.mjs';
@@ -13,7 +13,7 @@ export function register(ctx) {
     texto TEXT, archivo TEXT, usuario TEXT, fecha TEXT NOT NULL, estado TEXT NOT NULL, error TEXT, mensaje_id TEXT
   ); CREATE INDEX IF NOT EXISTS idx_wa_doc ON plugin_whatsapp_envios(doc_id)`);
 
-  const wa = crearWhatsApp({ carpeta: ctx.dataDir, nombreDispositivo: 'Gestor DeCA' });
+  const wa = crearWhatsApp({ carpeta: ctx.dataDir, nombreDispositivo: '7DeCA' });
   wa.arrancar();
   ctx.alParar(() => wa.parar());
 

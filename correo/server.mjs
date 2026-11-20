@@ -1,4 +1,4 @@
-// Plugin «Envío por correo» para Gestor DeCA y eCMR: envía el PDF oficial de un documento por SMTP.
+// Plugin «Envío por correo» para 7DeCA: envía el PDF oficial de un documento por SMTP.
 // - Credenciales cifradas con la clave de la instalación; nunca se devuelven ni aparecen en registros o errores.
 // - «Aceptado por el servidor» no significa entregado ni leído: así se muestra.
 import fs from 'node:fs';
@@ -71,7 +71,7 @@ export function register(ctx) {
     const para = String(req.body?.para || '').trim();
     if (!EMAIL.test(para)) throw err('Indica a qué correo enviar la prueba.');
     try {
-      const info = await transporte(c).sendMail({ from: remitente(c), to: para, replyTo: c.responder || undefined, subject: 'Prueba de correo de Gestor DeCA', text: 'Si recibes este mensaje, el envío de documentos por correo está bien configurado.' });
+      const info = await transporte(c).sendMail({ from: remitente(c), to: para, replyTo: c.responder || undefined, subject: 'Prueba de correo de 7DeCA', text: 'Si recibes este mensaje, el envío de documentos por correo está bien configurado.' });
       L(req, 'CORREO_PRUEBA', `Prueba aceptada por el servidor para ${para}`);
       res.json({ ok: 1, respuesta: String(info.response || '').slice(0, 200) });
     } catch (e) { L(req, 'CORREO_PRUEBA_ERROR', explicar(e), 'aviso'); throw err(explicar(e), 502); }

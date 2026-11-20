@@ -1,4 +1,4 @@
-// Plugin «Rutas y mapas» — interfaz dentro de Gestor DeCA y eCMR (usa window.DECA y window.RutasMapa).
+// Plugin «7Ruta» — interfaz dentro de 7DeCA (usa window.DECA y window.RutasMapa).
 (function () {
   const D = window.DECA;
   if (!D) return;

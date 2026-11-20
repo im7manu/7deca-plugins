@@ -1,6 +1,6 @@
 # Hoja de servicio
 
-Plugin para Gestor DeCA 1.5.0 o posterior.
+Plugin para 7DeCA 1.5.0 o posterior.
 
 ## Qué hace
 

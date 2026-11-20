@@ -1,8 +1,8 @@
-// Plugin «Rutas y mapas» para Gestor DeCA y eCMR.
+// Plugin «7Ruta» para 7DeCA.
 //
 // - Ubicaciones: busca la dirección (o acepta coordenadas) y guarda su posición para verla en el mapa.
 // - Envíos: calcula la ruta (camión o coche, evitando peajes, autopistas o ferris) con vista previa y guarda los km.
-//   Los km se pueden corregir a mano. Facturador los recibe por la API de integración (campo «ruta»).
+//   Los km se pueden corregir a mano. 7Factura los recibe por la API de integración (campo «ruta»).
 // - Proveedor: OpenRouteService por defecto (clave gratuita) o Google Maps con la clave del administrador.
 //   Las claves se guardan cifradas y nunca llegan al navegador (salvo la clave de navegador de Google, pública).
 import crypto from 'node:crypto';
@@ -213,8 +213,8 @@ export function register(ctx) {
     return { km: r.km, km_calculado: r.km_calculado, minutos: r.minutos, manual: !!r.manual, revisar: !!r.revisar, opciones: j(r.opciones, {}), puntos: j(r.puntos, []), linea: j(r.linea, []), proveedor: r.proveedor, calculado: r.calculado, error: r.error };
   };
 
-  // Para la API de integración (Facturador): km y coordenadas de los puntos (así Facturador puede calcular la vuelta
-  // o los km desde su base aunque los nombres de las ubicaciones solo existan en Gestor DeCA)
+  // Para la API de integración (7Factura): km y coordenadas de los puntos (así 7Factura puede calcular la vuelta
+  // o los km desde su base aunque los nombres de las ubicaciones solo existan en 7DeCA)
   ctx.extender('integracion.envio', ({ envio, datos }) => {
     const r = rutaDe(envio.id);
     const textos = textosDe(datos);

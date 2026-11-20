@@ -1,9 +1,9 @@
-// Plugin «Copias de seguridad automáticas» para Gestor DeCA y eCMR.
+// Plugin «Copias de seguridad automáticas» para 7DeCA.
 // - Destino dentro de la carpeta de datos (persistente en Docker) o de DECA_COPIAS_DIR, nunca en carpetas temporales.
 // - Cada copia se hace en una carpeta provisional, se comprueba (integridad de la base de datos y número de PDF) y solo
 //   entonces se da por válida. Las antiguas se borran después de que una copia nueva haya salido bien.
 // - Restaurar: solo administradores, con confirmación; antes se hace una copia del estado actual y el cambio se aplica al
-//   reiniciar (Gestor DeCA 1.5.0 coloca los datos de data/restaurar antes de abrir la base de datos).
+//   reiniciar (7DeCA 1.5.0 coloca los datos de data/restaurar antes de abrir la base de datos).
 import { DatabaseSync } from 'node:sqlite';
 import { spawn } from 'node:child_process';
 import crypto from 'node:crypto';
@@ -167,7 +167,7 @@ export function register(ctx) {
       if (process.env.DECA_SUPERVISADO !== '1') throw err('La aplicación no se está ejecutando con supervisor (npm start), así que no puede reiniciarse sola para restaurar.', 409);
       // 1) Copia del estado actual (completa)
       const antes = await crear('antes-de-restaurar', req.u.usuario);
-      // 2) Preparar los datos y reiniciar: Gestor DeCA los coloca antes de abrir la base de datos
+      // 2) Preparar los datos y reiniciar: 7DeCA los coloca antes de abrir la base de datos
       const rest = path.join(DATA, 'restaurar');
       fs.rmSync(rest, { recursive: true, force: true });
       fs.mkdirSync(rest, { recursive: true });

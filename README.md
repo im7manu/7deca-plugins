@@ -1,6 +1,6 @@
-# Plugins de Gestor DeCA y eCMR
+# Plugins de 7DeCA
 
-Plugins oficiales de [Gestor DeCA y eCMR](https://github.com/im7manu/gestor-deca-ecmr) (versión 1.5.0 o posterior). Se instalan desde la página **Plugins** de la aplicación (solo administradores), que lee el `registry.json` de este repositorio.
+Plugins oficiales de [7DeCA](https://github.com/im7manu/gestor-deca-ecmr) (versión 1.5.0 o posterior). Se instalan desde la página **Plugins** de la aplicación (solo administradores), que lee el `registry.json` de este repositorio.
 
 | Plugin | Qué hace |
 |---|---|
@@ -10,11 +10,11 @@ Plugins oficiales de [Gestor DeCA y eCMR](https://github.com/im7manu/gestor-deca
 | [`hoja-servicio`](hoja-servicio/) | Hoja operativa en PDF para el conductor (no sustituye al documento oficial) |
 | [`calendario`](calendario/) | Exporta los transportes a cualquier calendario en .ics |
 | [`copias`](copias/) | Copias de seguridad automáticas con comprobación, retención y restauración segura |
-| [`rutas`](rutas/) | Rutas y mapas: busca las ubicaciones o pon sus coordenadas, muestra la ruta de cada envío (camión o coche, evitando peajes, autopistas o ferris) y guarda los km para facturarlos por kilómetro en Facturador. OpenRouteService (gratis) o Google Maps (con tu clave) |
+| [`rutas`](rutas/) | 7Ruta: busca las ubicaciones o pon sus coordenadas, muestra la ruta de cada envío (camión o coche, evitando peajes, autopistas o ferris) y guarda los km para facturarlos por kilómetro en 7Factura. OpenRouteService (gratis) o Google Maps (con tu clave) |
 
 ## Instalar
 
-En Gestor DeCA, como administrador: **Plugins** → *Disponibles* → **Instalar**. La aplicación descarga el paquete de la *Release* y comprueba su SHA-256 con el de `registry.json`. Las actualizaciones aparecen en la misma página.
+En 7DeCA, como administrador: **Plugins** → *Disponibles* → **Instalar**. La aplicación descarga el paquete de la *Release* y comprueba su SHA-256 con el de `registry.json`. Las actualizaciones aparecen en la misma página.
 
 Sin conexión: descarga el `.tar.gz` de la [Release](https://github.com/im7manu/gestor-deca-plugins/releases) y súbelo en *Instalar desde un archivo*.
 
@@ -25,13 +25,13 @@ Los plugins y sus datos se guardan en la carpeta `data/` de la instalación: las
 ```bash
 npm test                              # pruebas
 node scripts/empaquetar.mjs rutas     # dist/rutas-<versión>.tar.gz y su entrada en registry.json
-gh release create rutas-v1.0.0 dist/rutas-1.0.0.tar.gz --title "Rutas y mapas 1.0.0"
+gh release create rutas-v1.0.0 dist/rutas-1.0.0.tar.gz --title "7Ruta 1.0.0"
 git add registry.json && git commit -m "rutas 1.0.0" && git push
 ```
 
 `empaquetar.mjs` solo vuelve a empaquetar los plugins que le indicas, así que no cambia el SHA-256 de los demás. Antes, instala las dependencias de los plugins que las tienen (`npm ci --omit=dev` en `whatsapp` y `correo`); se excluyen `sharp`, los tipos y `node_modules/.bin`.
 
-Las pruebas (`npm test`) necesitan Gestor DeCA 1.5.0 clonado al lado (`../gestor-deca-ecmr`).
+Las pruebas (`npm test`) necesitan 7DeCA 1.5.0 clonado al lado (`../gestor-deca-ecmr`).
 
 ## Crear un plugin
 

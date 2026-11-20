@@ -1,6 +1,6 @@
-# Rutas y mapas
+# 7Ruta
 
-Mapas y rutas para [Gestor DeCA y eCMR](https://github.com/im7manu/gestor-deca-ecmr) 1.5.0 o posterior.
+Mapas y rutas para [7DeCA](https://github.com/im7manu/gestor-deca-ecmr) 1.5.0 o posterior.
 
 ## Qué hace
 
@@ -9,7 +9,7 @@ Mapas y rutas para [Gestor DeCA y eCMR](https://github.com/im7manu/gestor-deca-e
 - **Envíos**: en el formulario, el panel **Ruta y kilómetros** calcula la ruta del lugar de carga a las descargas, con vista previa en el mapa, km y duración. Puedes elegir camión o turismo y evitar peajes, autopistas y autovías o ferris, y **corregir los km a mano**. Si cambias los lugares, la ruta se recalcula.
 - **Detalle del envío**: km guardados, ver la ruta en el mapa, corregir los km o recalcular. Si cambian los lugares después de corregir los km a mano, avisa para revisarlos.
 - **Cálculo automático**: los envíos guardados sin ruta (por ejemplo, desde otra pantalla) la calculan solos si está activada la opción.
-- **Facturador**: la API de integración devuelve en cada envío `ruta` (km, km calculados, duración, opciones) y `puntos` (coordenadas de carga y descargas). El plugin `gestor-deca` de Facturador los usa para **facturar por kilómetro**.
+- **7Factura**: la API de integración devuelve en cada envío `ruta` (km, km calculados, duración, opciones) y `puntos` (coordenadas de carga y descargas). El plugin `gestor-deca` de 7Factura los usa para **facturar por kilómetro**.
 
 ## Configuración (menú Mapas y rutas, administradores)
 
@@ -33,4 +33,4 @@ Con Google hacen falta dos claves: una **de servidor** (Routes API y Geocoding A
 
 ## Archivos compartidos
 
-`lib/proveedores.mjs` y `ui/mapa.js` son los mismos que en el plugin «Rutas y mapas» de [Facturador](https://github.com/im7manu/facturador-plugins). Si cambias uno, cópialo en el otro repositorio.
+`lib/proveedores.mjs` y `ui/mapa.js` son los mismos que en el plugin «7Ruta» de [7Factura](https://github.com/im7manu/facturador-plugins). Si cambias uno, cópialo en el otro repositorio.

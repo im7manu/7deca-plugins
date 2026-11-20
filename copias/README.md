@@ -1,6 +1,6 @@
 # Copias de seguridad automáticas
 
-Plugin para Gestor DeCA 1.5.0 o posterior.
+Plugin para 7DeCA 1.5.0 o posterior.
 
 ## Qué hace
 
@@ -11,4 +11,4 @@ Plugin para Gestor DeCA 1.5.0 o posterior.
 ## A tener en cuenta
 
 - Las copias se guardan dentro de la carpeta de datos (persistente en Docker) o de `DECA_COPIAS_DIR`; no se admiten rutas fuera ni carpetas temporales.
-- Restaurar necesita que la aplicación se ejecute con supervisor (`npm start`): se reinicia y Gestor DeCA coloca los datos antes de abrir la base de datos. La copia manual de siempre sigue disponible.
+- Restaurar necesita que la aplicación se ejecute con supervisor (`npm start`): se reinicia y 7DeCA coloca los datos antes de abrir la base de datos. La copia manual de siempre sigue disponible.

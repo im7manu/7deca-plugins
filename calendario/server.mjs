@@ -36,7 +36,7 @@ export function register(ctx) {
     return [[
       'BEGIN:VEVENT', `UID:${d.tipo}-${d.id}@${dominio}`, `DTSTAMP:${sello()}`, `DTSTART;VALUE=DATE:${fechaIcs(fecha)}`, `DTEND;VALUE=DATE:${fechaIcs(sumarDia(fecha))}`,
       `SUMMARY:${escapar(`${d.estado === 'anulado' ? '[ANULADO] ' : ''}Carga — ${d.num}${x.contraparte_nombre ? ` · ${x.contraparte_nombre}` : ''}`)}`,
-      `LOCATION:${escapar(x.origen || '')}`, `DESCRIPTION:${escapar(descripcion)}`, `URL:${d.url}`, `ORGANIZER;CN=${escapar(empresa || 'Gestor DeCA')}:mailto:noreply@${dominio}`,
+      `LOCATION:${escapar(x.origen || '')}`, `DESCRIPTION:${escapar(descripcion)}`, `URL:${d.url}`, `ORGANIZER;CN=${escapar(empresa || '7DeCA')}:mailto:noreply@${dominio}`,
       `STATUS:${d.estado === 'anulado' ? 'CANCELLED' : d.estado === 'borrador' ? 'TENTATIVE' : 'CONFIRMED'}`, 'TRANSP:TRANSPARENT', 'END:VEVENT',
     ]];
   }
@@ -44,7 +44,7 @@ export function register(ctx) {
     const emp = ctx.ajustes().nombre || '';
     let dominio = 'gestor-deca.local';
     try { dominio = new URL(ctx.base).hostname || dominio; } catch { /* por defecto */ }
-    const lineas = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//im7manu//Gestor DeCA y eCMR//ES', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', `X-WR-CALNAME:${escapar(`Transportes ${emp}`.trim())}`,
+    const lineas = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//im7manu//7DeCA//ES', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', `X-WR-CALNAME:${escapar(`Transportes ${emp}`.trim())}`,
       ...lista.flatMap((d) => eventos(d, emp, dominio).flat()), 'END:VCALENDAR'];
     return `${lineas.map(plegar).join('\r\n')}\r\n`;
   }

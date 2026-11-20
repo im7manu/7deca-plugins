@@ -1,4 +1,4 @@
-// Plugins de Gestor DeCA contra un Gestor DeCA real (../gestor-deca-ecmr) con datos temporales.
+// Plugins de 7DeCA contra un 7DeCA real (../gestor-deca-ecmr) con datos temporales.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn, execFileSync } from 'node:child_process';
@@ -29,7 +29,7 @@ function cliente(base) {
   };
 }
 
-test('plugins de Gestor DeCA', { skip: !fs.existsSync(path.join(DECA, 'plugins.js')) && 'falta ../gestor-deca-ecmr 1.5.0' }, async () => {
+test('plugins de 7DeCA', { skip: !fs.existsSync(path.join(DECA, 'plugins.js')) && 'falta ../gestor-deca-ecmr 1.5.0' }, async () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'deca-plugins-'));
   const P = 9341, BASE = `http://127.0.0.1:${P}`;
   const srv = await arrancar(dir, P);
@@ -83,7 +83,7 @@ test('plugins de Gestor DeCA', { skip: !fs.existsSync(path.join(DECA, 'plugins.j
     const rest = await api('POST', `/api/p/copias/copias/${c.id}/restaurar`, { confirmacion: 'RESTAURAR' });
     assert.equal(rest.status, 409, 'sin supervisor no restaura');
 
-    // Rutas: el envío expone sus puntos para Facturador
+    // Rutas: el envío expone sus puntos para 7Factura
     const tk = (await ok(api('POST', '/api/integraciones', { nombre: 'Prueba' }), 'token')).token;
     const envios = await fetch(`${BASE}/api/integracion/v1/envios`, { headers: { Authorization: `Bearer ${tk}` } }).then((r) => r.json());
     assert.ok('ruta' in envios.envios[0]);

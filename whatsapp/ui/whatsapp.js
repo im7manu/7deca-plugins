@@ -1,4 +1,4 @@
-// Plugin «WhatsApp Web» — interfaz en Gestor DeCA y eCMR (usa window.DECA).
+// Plugin «WhatsApp Web» — interfaz en 7DeCA (usa window.DECA).
 (function () {
   const D = window.DECA;
   if (!D) return;
