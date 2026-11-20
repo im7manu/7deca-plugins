@@ -92,7 +92,75 @@
   });
 
   // =====================================================================
-  // Ubicaciones: buscar la dirección, poner coordenadas y ver el punto en el mapa
+  // Autocompletar direcciones mientras se escribe (ubicaciones, empresas, contraparte y Mi entidad)
+  // Al elegir un resultado se rellenan la dirección, el código postal, la población y la provincia del mismo formulario,
+  // y se avisa con el evento «rutas:direccion» (lo usa el mapa de la ubicación).
+  // =====================================================================
+  const CAMPOS_DIR = 'input[name=direccion], input[name=domicilio], input[name=contraparte_direccion]';
+  let lista = null, activo = null;
+  const cerrarLista = () => { lista?.remove(); lista = null; activo = null; };
+  document.addEventListener('scroll', (ev) => { if (lista && !lista.contains(ev.target)) cerrarLista(); }, true);
+  window.addEventListener('resize', cerrarLista);
+
+  function rellenar(input, r) {
+    const form = input.form || input.closest('form');
+    const completa = input.name === 'contraparte_direccion' || !form?.querySelector('[name=cp]');
+    const poner = (nombre, valor) => {
+      const el = form?.querySelector(`[name=${nombre}]`);
+      if (!el || !valor) return;
+      el.value = valor; el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true }));
+    };
+    const calle = r.calle || (r.fuente === 'coordenadas' ? input.value : '');
+    input.value = completa ? [calle, [r.cp, r.ciudad].filter(Boolean).join(' '), r.provincia !== r.ciudad ? r.provincia : ''].filter(Boolean).join(', ') : calle || input.value;
+    input.dispatchEvent(new Event('input', { bubbles: true })); input.dispatchEvent(new Event('change', { bubbles: true }));
+    if (!completa) { poner('cp', r.cp); poner('ciudad', r.ciudad); poner('provincia', r.provincia); }
+    form?.dispatchEvent(new CustomEvent('rutas:direccion', { detail: r }));
+  }
+
+  function autocompletar(input) {
+    if (input.dataset.rutasAc) return;
+    input.dataset.rutasAc = '1';
+    input.setAttribute('autocomplete', 'off');
+    let t = null, n = 0, res = [], idx = -1;
+    const pintar = () => {
+      if (!res.length || document.activeElement !== input) { if (activo === input) cerrarLista(); return; }
+      if (!lista || activo !== input) { cerrarLista(); lista = document.createElement('div'); lista.className = 'rutas-ac'; lista.setAttribute('role', 'listbox'); document.body.appendChild(lista); activo = input; }
+      const b = input.getBoundingClientRect();
+      Object.assign(lista.style, { left: `${b.left}px`, top: `${b.bottom + 2}px`, width: `${Math.max(b.width, 320)}px` });
+      lista.innerHTML = res.map((r, i) => `<div class="rutas-ac-op${i === idx ? ' on' : ''}" role="option" data-i="${i}">${D.I('pin', 14)}<div><div>${e(r.calle || r.etiqueta)}</div><div class="rutas-ac-sub">${e([r.cp, r.ciudad, r.provincia !== r.ciudad ? r.provincia : ''].filter(Boolean).join(' · ') || r.etiqueta)}</div></div></div>`).join('')
+        + '<div class="rutas-ac-pie">Elige una dirección para rellenar el resto de campos</div>';
+      lista.querySelectorAll('[data-i]').forEach((o) => o.addEventListener('mousedown', (ev) => { ev.preventDefault(); elegir(Number(o.dataset.i)); }));
+    };
+    const elegir = (i) => { const r = res[i]; if (!r) return; res = []; cerrarLista(); rellenar(input, r); };
+    input.addEventListener('input', (ev) => {
+      if (!ev.isTrusted) return; // cambios hechos por código (p. ej. al rellenar)
+      clearTimeout(t);
+      const q = input.value.trim();
+      if (q.length < 3) { res = []; pintar(); return; }
+      t = setTimeout(async () => {
+        const mio = ++n;
+        try {
+          const r = await D.api(`${P}/sugerir?q=${encodeURIComponent(q)}`);
+          if (mio !== n) return;
+          res = r.resultados || []; idx = -1; pintar();
+        } catch { /* sin conexión con el servicio: se escribe a mano */ }
+      }, 300);
+    });
+    input.addEventListener('keydown', (ev) => {
+      if (activo !== input || !res.length) return;
+      if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') { ev.preventDefault(); idx = (idx + (ev.key === 'ArrowDown' ? 1 : -1) + res.length) % res.length; pintar(); }
+      else if (ev.key === 'Enter' && idx >= 0) { ev.preventDefault(); elegir(idx); }
+      else if (ev.key === 'Escape') { res = []; cerrarLista(); }
+    });
+    input.addEventListener('blur', () => setTimeout(() => { if (activo === input) cerrarLista(); }, 150));
+  }
+  const engancharDirecciones = (raiz) => raiz.querySelectorAll?.(CAMPOS_DIR).forEach(autocompletar);
+  new MutationObserver((ms) => ms.forEach((m) => m.addedNodes.forEach((nodo) => { if (nodo.nodeType === 1) { if (nodo.matches?.(CAMPOS_DIR)) autocompletar(nodo); engancharDirecciones(nodo); } })))
+    .observe(document.body, { childList: true, subtree: true });
+  engancharDirecciones(document);
+
+  // =====================================================================
+  // Ubicaciones: posición en el mapa (de la dirección elegida, de coordenadas o pulsando en el mapa)
   // =====================================================================
   D.extender('ubicacion.form', async ({ form, cont, ubicacion }) => {
     const c = await config().catch(() => null);
@@ -101,41 +169,34 @@
     const guardadas = ubicacion.id ? await D.api(`${P}/ubicaciones`).catch(() => []) : [];
     const g = guardadas.find((x) => x.id === ubicacion.id);
     cont.innerHTML = `<div class="rutas-ubi">
-      <div class="rutas-ubi-cab">${D.I('map')} <strong>Posición en el mapa</strong> <span class="small muted">Busca la dirección, pon coordenadas o pulsa en el mapa</span></div>
-      <div class="rutas-buscar"><input class="input" data-q placeholder="Dirección, población o coordenadas (40.4168, -3.7038)"><button type="button" class="btn-secondary" data-buscar>${D.I('search')} Buscar</button></div>
-      <div class="rutas-res" data-res></div>
+      <div class="rutas-ubi-cab">${D.I('map')} <strong>Posición en el mapa</strong> <span class="small muted">Al escribir la dirección, elige una de las sugerencias. También puedes pulsar en el mapa o poner coordenadas.</span></div>
       <div class="rutas-mapa" data-mapa></div>
-      <div class="small muted" data-estado></div>
+      <div class="rutas-coord"><label class="field"><span>Coordenadas</span><input class="input" data-coord placeholder="40.4168, -3.7038" autocomplete="off"></label><span class="small muted" data-estado></span></div>
       <input type="hidden" name="rutas_lat" value="${g ? g.lat : ''}"><input type="hidden" name="rutas_lon" value="${g ? g.lon : ''}">
       <input type="hidden" name="rutas_etiqueta" value="${e(g?.etiqueta || '')}"><input type="hidden" name="rutas_fuente" value="${e(g?.fuente || '')}">
     </div>`;
     const $ = (s) => cont.querySelector(s);
-    const dir = () => [form.direccion?.value, [form.cp?.value, form.ciudad?.value].filter(Boolean).join(' '), form.provincia?.value].filter(Boolean).join(', ');
-    $('[data-q]').value = dir();
     const mapa = await window.RutasMapa.crear($('[data-mapa]'), c);
     const poner = (lat, lon, etiqueta, fuente) => {
       form.querySelector('[name=rutas_lat]').value = lat; form.querySelector('[name=rutas_lon]').value = lon;
       form.querySelector('[name=rutas_etiqueta]').value = etiqueta || ''; form.querySelector('[name=rutas_fuente]').value = fuente || 'manual';
+      $('[data-coord]').value = `${Number(lat).toFixed(6)}, ${Number(lon).toFixed(6)}`;
       mapa.puntos([{ lat, lon, etiqueta }]);
-      $('[data-estado]').textContent = `${etiqueta ? `${etiqueta} · ` : ''}${Number(lat).toFixed(6)}, ${Number(lon).toFixed(6)}`;
+      $('[data-estado]').textContent = etiqueta || '';
     };
     if (g) poner(g.lat, g.lon, g.etiqueta, g.fuente);
-    else $('[data-estado]').textContent = 'Sin posición. Si no eliges ninguna, se buscará la dirección al guardar.';
+    else $('[data-estado]').textContent = 'Sin posición. Si no eliges ninguna sugerencia, se buscará la dirección al guardar.';
+    form.addEventListener('rutas:direccion', (ev) => { const r = ev.detail; poner(r.lat, r.lon, r.etiqueta, r.fuente); });
     mapa.alClic((lat, lon) => poner(lat, lon, 'Punto elegido en el mapa', 'manual'));
-    const buscar = async () => {
-      const q = $('[data-q]').value.trim() || dir();
-      if (q.length < 3) return;
-      $('[data-res]').innerHTML = '<div class="small muted">Buscando…</div>';
-      try {
-        const { resultados } = await D.api(`${P}/geocodificar?q=${encodeURIComponent(q)}`);
-        if (!resultados.length) { $('[data-res]').innerHTML = '<div class="rutas-aviso">No se ha encontrado esa dirección. Prueba con menos detalle, con la población o con coordenadas.</div>'; return; }
-        $('[data-res]').innerHTML = resultados.map((r, i) => `<button type="button" class="rutas-op" data-i="${i}">${D.I('pin', 14)} ${e(r.etiqueta)}</button>`).join('');
-        $('[data-res]').querySelectorAll('[data-i]').forEach((b) => { b.onclick = () => { const r = resultados[Number(b.dataset.i)]; poner(r.lat, r.lon, r.etiqueta, r.fuente); $('[data-res]').innerHTML = ''; }; });
-        if (resultados.length === 1 || resultados[0].fuente === 'coordenadas') { const r = resultados[0]; poner(r.lat, r.lon, r.etiqueta, r.fuente); $('[data-res]').innerHTML = ''; }
-      } catch (x) { $('[data-res]').innerHTML = `<div class="rutas-aviso">${e(x.message)}</div>`; }
+    const coord = () => {
+      const m = $('[data-coord]').value.trim().match(/^(-?\d{1,2}(?:[.,]\d+)?)\s*[,; ]\s*(-?\d{1,3}(?:[.,]\d+)?)$/);
+      if (!m) { if ($('[data-coord]').value.trim()) $('[data-estado]').textContent = 'Escribe las coordenadas como «latitud, longitud» (p. ej. 40.4168, -3.7038).'; return; }
+      const lat = Number(m[1].replace(',', '.')), lon = Number(m[2].replace(',', '.'));
+      if (Math.abs(lat) > 90 || Math.abs(lon) > 180) { $('[data-estado]').textContent = 'Coordenadas fuera de rango.'; return; }
+      poner(lat, lon, 'Coordenadas escritas a mano', 'coordenadas');
     };
-    $('[data-buscar]').onclick = buscar;
-    $('[data-q]').addEventListener('keydown', (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); buscar(); } });
+    $('[data-coord]').addEventListener('change', coord);
+    $('[data-coord]').addEventListener('keydown', (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); coord(); } });
   });
 
   D.extender('ubicaciones.lista', async ({ view }) => {

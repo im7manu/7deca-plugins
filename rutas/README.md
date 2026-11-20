@@ -4,7 +4,8 @@ Mapas y rutas para [Gestor DeCA y eCMR](https://github.com/im7manu/gestor-deca-e
 
 ## Qué hace
 
-- **Ubicaciones frecuentes**: al crear o editar una ubicación, busca la dirección (te dice si existe y te deja elegir entre varios resultados), escribe coordenadas (`40.4168, -3.7038`) o pulsa en el mapa. Si no eliges nada, la dirección se busca sola al guardar. La lista marca qué ubicaciones están en el mapa.
+- **Direcciones que se completan solas**: al escribir en el campo de dirección (ubicaciones, empresas, nueva contraparte y Mi entidad) aparecen sugerencias. Al elegir una se rellenan la dirección, el código postal, la población y la provincia (y la posición en el mapa en las ubicaciones). Con OpenRouteService se usa su autocompletado; sin clave, Photon (OpenStreetMap); con Google, Geocoding API.
+- **Ubicaciones frecuentes**: la posición se toma de la dirección elegida; también puedes poner coordenadas (`40.4168, -3.7038`) o pulsar en el mapa. Si no eliges nada, la dirección se busca sola al guardar. La lista marca qué ubicaciones están en el mapa.
 - **Envíos**: en el formulario, el panel **Ruta y kilómetros** calcula la ruta del lugar de carga a las descargas, con vista previa en el mapa, km y duración. Puedes elegir camión o turismo y evitar peajes, autopistas y autovías o ferris, y **corregir los km a mano**. Si cambias los lugares, la ruta se recalcula.
 - **Detalle del envío**: km guardados, ver la ruta en el mapa, corregir los km o recalcular. Si cambian los lugares después de corregir los km a mano, avisa para revisarlos.
 - **Cálculo automático**: los envíos guardados sin ruta (por ejemplo, desde otra pantalla) la calculan solos si está activada la opción.

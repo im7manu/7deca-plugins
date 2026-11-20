@@ -88,6 +88,12 @@ export function register(ctx) {
     res.json({ resultados: await rutas().geocodificar(q) });
   }));
 
+  // Sugerencias mientras se escribe una dirección (autocompletar)
+  router.get('/sugerir', envolver(async (req, res) => {
+    const q = String(req.query.q || '').trim();
+    res.json({ resultados: q.length < 3 ? [] : await rutas().sugerir(q) });
+  }));
+
   // Coordenadas de las ubicaciones frecuentes
   const coordsUbicaciones = () => db.prepare(`SELECT u.id, u.nombre, u.direccion, u.cp, u.ciudad, u.provincia, u.empresa, r.lat, r.lon, r.etiqueta, r.fuente
     FROM ubicaciones u LEFT JOIN plugin_rutas_ubicaciones r ON r.ubicacion_id = u.id`).all();

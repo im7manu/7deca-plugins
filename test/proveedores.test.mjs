@@ -99,3 +99,28 @@ test('los archivos compartidos son iguales que en facturador-plugins', async (t)
     assert.equal(fs.readFileSync(new URL(`../rutas/${f}`, import.meta.url), 'utf8'), fs.readFileSync(new URL(f, otro), 'utf8'), `${f} es distinto en facturador-plugins`);
   }
 });
+
+test('sugerencias mientras se escribe: Photon sin clave, Pelias con clave y provincia por código postal', async () => {
+  const { provinciaDeCP } = await import('../rutas/lib/proveedores.mjs');
+  assert.equal(provinciaDeCP('45310'), 'Toledo');
+  assert.equal(provinciaDeCP('07001'), 'Islas Baleares');
+  assert.equal(provinciaDeCP('x'), '');
+  const ph = falso(() => respuesta({ features: [
+    { properties: { street: 'Calle Mayor', housenumber: '1', postcode: '28013', city: 'Madrid', state: 'Comunidad de Madrid', countrycode: 'ES', type: 'house' }, geometry: { coordinates: [-3.70, 40.41] } },
+    { properties: { name: 'Bar', street: 'Calle Mayor', housenumber: '1', postcode: '28013', city: 'Madrid', countrycode: 'ES', type: 'house' }, geometry: { coordinates: [-3.70, 40.41] } },
+    { properties: { name: 'Polígono Los Ángeles', postcode: '28906', city: 'Getafe', countrycode: 'ES', type: 'locality' }, geometry: { coordinates: [-3.70, 40.31] } },
+    { properties: { street: 'Rue X', city: 'Paris', countrycode: 'FR' }, geometry: { coordinates: [2.3, 48.8] } },
+  ] }));
+  const r = await crearRutas({}, { fetch: ph }).sugerir('calle mayor');
+  assert.match(ph.llamadas[0].url, /^https:\/\/photon\.komoot\.io\/api\/\?q=calle\+mayor/);
+  assert.equal(r.length, 2, 'sin repetidos ni resultados de otros países');
+  assert.deepEqual([r[0].calle, r[0].cp, r[0].ciudad, r[0].provincia], ['Calle Mayor, 1', '28013', 'Madrid', 'Madrid']);
+  assert.equal(r[1].calle, 'Polígono Los Ángeles');
+  assert.deepEqual(await crearRutas({}, { fetch: ph }).sugerir('ab'), []);
+
+  const pe = falso(() => respuesta({ features: [{ properties: { label: 'Calle Mayor 1, Toledo', street: 'Calle Mayor', housenumber: '1', postalcode: '45001', locality: 'Toledo', region: 'Castilla-La Mancha', country_code: 'es' }, geometry: { coordinates: [-4.02, 39.86] } }] }));
+  const r2 = await crearRutas({ ors: { clave: 'K' } }, { fetch: pe }).sugerir('calle mayor 1 tol');
+  assert.match(pe.llamadas[0].url, /pelias\/v1\/autocomplete\?text=calle/);
+  assert.equal(pe.llamadas[0].init.headers.Authorization, 'K');
+  assert.equal(r2[0].provincia, 'Toledo');
+});
