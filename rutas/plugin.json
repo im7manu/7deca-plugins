@@ -1,0 +1,18 @@
+{
+  "id": "rutas",
+  "nombre": "Rutas y mapas",
+  "version": "1.0.0",
+  "descripcion": "Mapas en Gestor DeCA: busca las ubicaciones o pon sus coordenadas, muestra la ruta de cada envío (camión o coche, evitando peajes, autopistas o ferris) y guarda los km para facturarlos por kilómetro en Facturador. OpenRouteService por defecto o Google Maps con tu clave.",
+  "autor": "im7manu",
+  "licencia": "MIT",
+  "app_min": "1.5.0",
+  "server": "server.mjs",
+  "ui": { "scripts": ["ui/leaflet/leaflet.js", "ui/mapa.js", "ui/rutas.js"], "estilos": ["ui/leaflet/leaflet.css", "ui/rutas.css"] },
+  "csp": {
+    "img": ["https://tile.openstreetmap.org", "https://*.googleapis.com", "https://*.gstatic.com", "https://*.google.com"],
+    "script": ["https://maps.googleapis.com", "https://maps.gstatic.com"],
+    "connect": ["https://maps.googleapis.com", "https://*.googleapis.com"],
+    "style": ["https://fonts.googleapis.com"],
+    "font": ["https://fonts.gstatic.com"]
+  }
+}
