@@ -1,6 +1,61 @@
 {
   "plugins": [
     {
+      "id": "calendario",
+      "nombre": "Calendario (.ics)",
+      "version": "1.0.0",
+      "descripcion": "Descarga los transportes como eventos de calendario (.ics) para Apple Calendar, Google Calendar u Outlook: uno a uno desde el envío o varios a la vez filtrando por fechas. Sin conectar con ninguna cuenta ni pedir contraseñas.",
+      "autor": "im7manu",
+      "app_min": "1.5.0",
+      "url": "https://github.com/im7manu/7deca-plugins/releases/download/calendario-v1.0.0/calendario-1.0.0.tar.gz",
+      "sha256": "d67b70f956ad912c2dce094af8c3056f2a08f2dcfbf3d184eff5ca1f8f4b2d6b",
+      "repo": "https://github.com/im7manu/7deca-plugins/tree/main/calendario"
+    },
+    {
+      "id": "copias",
+      "nombre": "Copias de seguridad automáticas",
+      "version": "1.0.0",
+      "descripcion": "Copias automáticas diarias o semanales de la base de datos y los PDF, comprobadas antes de darlas por buenas, con número de copias a conservar, aviso de errores (espacio, permisos), descarga y restauración segura (antes guarda una copia del estado actual). Complementa la copia manual de 7DeCA.",
+      "autor": "im7manu",
+      "app_min": "1.5.0",
+      "url": "https://github.com/im7manu/7deca-plugins/releases/download/copias-v1.0.0/copias-1.0.0.tar.gz",
+      "sha256": "0270b0fabeabf5f8fe97290cfa25edb31529cf8ae7ca56424fd8b02b3fc6a033",
+      "repo": "https://github.com/im7manu/7deca-plugins/tree/main/copias"
+    },
+    {
+      "id": "correo",
+      "nombre": "Envío por correo",
+      "version": "1.0.0",
+      "descripcion": "Envía el PDF del DeCA o eCMR por correo al conductor, al cliente o a quien quieras, desde la cuenta SMTP de tu empresa. Plantillas con variables, enlace de consulta opcional, reenvíos e historial por documento.",
+      "autor": "im7manu",
+      "app_min": "1.5.0",
+      "url": "https://github.com/im7manu/7deca-plugins/releases/download/correo-v1.0.0/correo-1.0.0.tar.gz",
+      "sha256": "a999b7bf73f5f9de7043eeb89f8b16121d00a26876bf45128816c4fb0ee46474",
+      "repo": "https://github.com/im7manu/7deca-plugins/tree/main/correo"
+    },
+    {
+      "id": "hoja-servicio",
+      "nombre": "Hoja de servicio",
+      "version": "1.0.0",
+      "descripcion": "Genera para cada transporte una hoja operativa para el conductor: fecha, vehículo, direcciones de carga y descarga, contactos, mercancía, instrucciones y QR del documento oficial. Se imprime, se consulta en el móvil o se envía con los plugins de WhatsApp y correo. No sustituye al DeCA ni a la carta de porte.",
+      "autor": "im7manu",
+      "app_min": "1.5.0",
+      "url": "https://github.com/im7manu/7deca-plugins/releases/download/hoja-servicio-v1.0.0/hoja-servicio-1.0.0.tar.gz",
+      "sha256": "1031003183020df1fda2f84e507a051596c730e1166595cf0501dd4dfeaeca37",
+      "repo": "https://github.com/im7manu/7deca-plugins/tree/main/hoja-servicio"
+    },
+    {
+      "id": "plantillas",
+      "nombre": "Plantillas de transportes",
+      "version": "1.0.0",
+      "descripcion": "Guarda los transportes que se repiten (rutas habituales, clientes recurrentes, mercancía y condiciones) como plantillas y crea envíos nuevos a partir de ellas. Nunca copia el número, el QR, el estado, el peso, la fecha ni otros datos propios de cada viaje.",
+      "autor": "im7manu",
+      "app_min": "1.5.0",
+      "url": "https://github.com/im7manu/7deca-plugins/releases/download/plantillas-v1.0.0/plantillas-1.0.0.tar.gz",
+      "sha256": "7a809f59f575a7f9ec6d0fb4f522a45269baf56b761d101130d604389326c9ee",
+      "repo": "https://github.com/im7manu/7deca-plugins/tree/main/plantillas"
+    },
+    {
       "id": "rutas",
       "nombre": "7Ruta",
       "version": "1.0.0",
@@ -8,8 +63,19 @@
       "autor": "im7manu",
       "app_min": "1.5.0",
       "url": "https://github.com/im7manu/7deca-plugins/releases/download/rutas-v1.0.0/rutas-1.0.0.tar.gz",
-      "sha256": "deaeb8282d97ddcf61a279cb32533e6f0c608025f155fc23c42f77b52549eb28",
+      "sha256": "5bf2f220289bdc602ad8753ad8fc4b2edb3b130b0ade5435c68aad3be6946e72",
       "repo": "https://github.com/im7manu/7deca-plugins/tree/main/rutas"
+    },
+    {
+      "id": "whatsapp",
+      "nombre": "WhatsApp Web",
+      "version": "1.0.0",
+      "descripcion": "Envía el PDF del DeCA o eCMR al WhatsApp del conductor desde el número de la empresa, vinculado como WhatsApp Web con un código QR. Sesión propia, separada del WhatsApp de recuperación de contraseñas. Sin la API de pago de WhatsApp Business.",
+      "autor": "im7manu",
+      "app_min": "1.5.0",
+      "url": "https://github.com/im7manu/7deca-plugins/releases/download/whatsapp-v1.0.0/whatsapp-1.0.0.tar.gz",
+      "sha256": "d5577aedf111f9ea0651f8ce0cc034fe7dd766b6d096e16571bfaebad239ec4b",
+      "repo": "https://github.com/im7manu/7deca-plugins/tree/main/whatsapp"
     }
   ]
 }
