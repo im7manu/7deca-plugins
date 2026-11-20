@@ -1,0 +1,11 @@
+{
+  "id": "plantillas",
+  "nombre": "Plantillas de transportes",
+  "version": "1.0.0",
+  "descripcion": "Guarda los transportes que se repiten (rutas habituales, clientes recurrentes, mercancía y condiciones) como plantillas y crea envíos nuevos a partir de ellas. Nunca copia el número, el QR, el estado, el peso, la fecha ni otros datos propios de cada viaje.",
+  "autor": "im7manu",
+  "licencia": "MIT",
+  "app_min": "1.5.0",
+  "server": "server.mjs",
+  "ui": { "scripts": ["ui/plantillas.js"], "estilos": ["ui/plantillas.css"] }
+}

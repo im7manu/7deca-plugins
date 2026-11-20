@@ -1,0 +1,11 @@
+{
+  "id": "calendario",
+  "nombre": "Calendario (.ics)",
+  "version": "1.0.0",
+  "descripcion": "Descarga los transportes como eventos de calendario (.ics) para Apple Calendar, Google Calendar u Outlook: uno a uno desde el envío o varios a la vez filtrando por fechas. Sin conectar con ninguna cuenta ni pedir contraseñas.",
+  "autor": "im7manu",
+  "licencia": "MIT",
+  "app_min": "1.5.0",
+  "server": "server.mjs",
+  "ui": { "scripts": ["ui/calendario.js"] }
+}

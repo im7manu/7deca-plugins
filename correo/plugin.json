@@ -1,0 +1,11 @@
+{
+  "id": "correo",
+  "nombre": "Envío por correo",
+  "version": "1.0.0",
+  "descripcion": "Envía el PDF del DeCA o eCMR por correo al conductor, al cliente o a quien quieras, desde la cuenta SMTP de tu empresa. Plantillas con variables, enlace de consulta opcional, reenvíos e historial por documento.",
+  "autor": "im7manu",
+  "licencia": "MIT",
+  "app_min": "1.5.0",
+  "server": "server.mjs",
+  "ui": { "scripts": ["ui/correo.js"], "estilos": ["ui/correo.css"] }
+}

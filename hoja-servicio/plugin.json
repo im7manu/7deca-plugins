@@ -1,0 +1,11 @@
+{
+  "id": "hoja-servicio",
+  "nombre": "Hoja de servicio",
+  "version": "1.0.0",
+  "descripcion": "Genera para cada transporte una hoja operativa para el conductor: fecha, vehículo, direcciones de carga y descarga, contactos, mercancía, instrucciones y QR del documento oficial. Se imprime, se consulta en el móvil o se envía con los plugins de WhatsApp y correo. No sustituye al DeCA ni a la carta de porte.",
+  "autor": "im7manu",
+  "licencia": "MIT",
+  "app_min": "1.5.0",
+  "server": "server.mjs",
+  "ui": { "scripts": ["ui/hoja.js"] }
+}

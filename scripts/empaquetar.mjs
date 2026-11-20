@@ -22,7 +22,7 @@ for (const id of pedidos) {
   const m = JSON.parse(fs.readFileSync(path.join(raiz, id, 'plugin.json'), 'utf8'));
   if (m.id !== id) throw new Error(`La carpeta ${id} debe llamarse como su id (${m.id})`);
   const archivo = path.join(dist, `${m.id}-${m.version}.tar.gz`);
-  execFileSync('tar', ['-czf', archivo, '--exclude=test', '--exclude=.DS_Store', '--exclude=package-lock.json', '--exclude=.bin', '-C', path.join(raiz, id), '.'],
+  execFileSync('tar', ['-czf', archivo, '--exclude=test', '--exclude=node_modules/@img', '--exclude=node_modules/sharp', '--exclude=node_modules/@types', '--exclude=*.d.ts', '--exclude=*.map', '--exclude=.DS_Store', '--exclude=package-lock.json', '--exclude=.bin', '-C', path.join(raiz, id), '.'],
     { env: { ...process.env, COPYFILE_DISABLE: '1' } });
   const sha256 = crypto.createHash('sha256').update(fs.readFileSync(archivo)).digest('hex');
   const entrada = {

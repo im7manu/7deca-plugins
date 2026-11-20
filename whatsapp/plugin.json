@@ -1,0 +1,11 @@
+{
+  "id": "whatsapp",
+  "nombre": "WhatsApp Web",
+  "version": "1.0.0",
+  "descripcion": "Envía el PDF del DeCA o eCMR al WhatsApp del conductor desde el número de la empresa, vinculado como WhatsApp Web con un código QR. Sesión propia, separada del WhatsApp de recuperación de contraseñas. Sin la API de pago de WhatsApp Business.",
+  "autor": "im7manu",
+  "licencia": "MIT",
+  "app_min": "1.5.0",
+  "server": "server.mjs",
+  "ui": { "scripts": ["ui/whatsapp.js"], "estilos": ["ui/whatsapp.css"] }
+}

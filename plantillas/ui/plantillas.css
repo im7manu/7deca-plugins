@@ -1,0 +1,5 @@
+.plt-elegir{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;padding:10px 12px;border:1px dashed var(--border);border-radius:10px}
+.plt-elegir .select{max-width:320px}
+.plt-pref{display:flex;gap:6px;align-items:center}
+.plt-aviso{display:flex;gap:8px;align-items:flex-start;margin-bottom:12px;padding:10px 12px;border-radius:10px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.35);font-size:13px}
+.plt-rellenado{box-shadow:0 0 0 2px rgba(59,130,246,.55) !important;background-image:linear-gradient(rgba(59,130,246,.07),rgba(59,130,246,.07)) !important}

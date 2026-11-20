@@ -1,0 +1,13 @@
+.wa-card{padding:16px 18px;margin-bottom:14px}
+.wa-fila{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}
+.wa-estado{font-size:18px;font-weight:700;margin:2px 0 4px}
+.wa-conectado{color:var(--success)}.wa-desconectado{color:var(--muted)}.wa-esperando_qr,.wa-conectando,.wa-reconectando{color:var(--warning)}
+.wa-error{background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.35);border-radius:8px;padding:8px 10px;font-size:13px;margin:8px 0}
+.wa-error-t{color:var(--danger)}
+.wa-qr{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.wa-qr-img{background:#fff;padding:8px;border-radius:10px;line-height:0}.wa-qr-img svg{width:240px;height:240px}
+.wa-boton{margin-top:10px}
+.wa-adjunto{display:flex;gap:6px;align-items:center;margin:10px 0;font-size:14px}
+.wa-hist{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);display:grid;gap:4px}
+.wa-est{font-weight:600}.wa-e-entregado,.wa-e-enviado{color:var(--success)}.wa-e-error,.wa-e-sesion_desconectada{color:var(--danger)}
+.wa-extra{display:flex;gap:6px;align-items:center;font-size:13px;margin:6px 0;cursor:pointer}

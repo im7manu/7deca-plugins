@@ -4,6 +4,12 @@ Plugins oficiales de [Gestor DeCA y eCMR](https://github.com/im7manu/gestor-deca
 
 | Plugin | Qué hace |
 |---|---|
+| [`whatsapp`](whatsapp/) | Envía el PDF del DeCA o eCMR al conductor por WhatsApp desde el número de la empresa (WhatsApp Web vinculado con QR), separado del WhatsApp de recuperación de contraseñas |
+| [`correo`](correo/) | Envía los documentos por correo con la cuenta SMTP de la empresa, con plantillas e historial |
+| [`plantillas`](plantillas/) | Plantillas de transportes frecuentes para crear envíos sin repetir datos |
+| [`hoja-servicio`](hoja-servicio/) | Hoja operativa en PDF para el conductor (no sustituye al documento oficial) |
+| [`calendario`](calendario/) | Exporta los transportes a cualquier calendario en .ics |
+| [`copias`](copias/) | Copias de seguridad automáticas con comprobación, retención y restauración segura |
 | [`rutas`](rutas/) | Rutas y mapas: busca las ubicaciones o pon sus coordenadas, muestra la ruta de cada envío (camión o coche, evitando peajes, autopistas o ferris) y guarda los km para facturarlos por kilómetro en Facturador. OpenRouteService (gratis) o Google Maps (con tu clave) |
 
 ## Instalar
@@ -23,7 +29,9 @@ gh release create rutas-v1.0.0 dist/rutas-1.0.0.tar.gz --title "Rutas y mapas 1.
 git add registry.json && git commit -m "rutas 1.0.0" && git push
 ```
 
-`empaquetar.mjs` solo vuelve a empaquetar los plugins que le indicas, así que no cambia el SHA-256 de los demás.
+`empaquetar.mjs` solo vuelve a empaquetar los plugins que le indicas, así que no cambia el SHA-256 de los demás. Antes, instala las dependencias de los plugins que las tienen (`npm ci --omit=dev` en `whatsapp` y `correo`); se excluyen `sharp`, los tipos y `node_modules/.bin`.
+
+Las pruebas (`npm test`) necesitan Gestor DeCA 1.5.0 clonado al lado (`../gestor-deca-ecmr`).
 
 ## Crear un plugin
 

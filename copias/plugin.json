@@ -1,0 +1,11 @@
+{
+  "id": "copias",
+  "nombre": "Copias de seguridad automáticas",
+  "version": "1.0.0",
+  "descripcion": "Copias automáticas diarias o semanales de la base de datos y los PDF, comprobadas antes de darlas por buenas, con número de copias a conservar, aviso de errores (espacio, permisos), descarga y restauración segura (antes guarda una copia del estado actual). Complementa la copia manual de Gestor DeCA.",
+  "autor": "im7manu",
+  "licencia": "MIT",
+  "app_min": "1.5.0",
+  "server": "server.mjs",
+  "ui": { "scripts": ["ui/copias.js"] }
+}

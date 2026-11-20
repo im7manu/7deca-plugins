@@ -1,0 +1,5 @@
+.correo-error{background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.35);border-radius:8px;padding:8px 10px;font-size:13px;margin-bottom:8px}
+.correo-sug{display:grid;gap:4px;margin:4px 0 10px}
+.correo-chk{display:flex;gap:6px;align-items:center;font-size:13px;cursor:pointer;margin:4px 0}
+.correo-hist{margin-top:10px;padding-top:8px;border-top:1px solid var(--border);display:grid;gap:4px}
+.correo-ok{color:var(--success);font-weight:600}.correo-mal{color:var(--danger);font-weight:600}

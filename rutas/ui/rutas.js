@@ -162,9 +162,10 @@
   // =====================================================================
   // Ubicaciones: posición en el mapa (de la dirección elegida, de coordenadas o pulsando en el mapa)
   // =====================================================================
-  D.extender('ubicacion.form', async ({ form, cont, ubicacion }) => {
+  D.extender('ubicacion.form', async ({ form, cont: hueco, ubicacion }) => {
     const c = await config().catch(() => null);
-    if (!c) return;
+    if (!c || !hueco) return;
+    const cont = hueco.appendChild(document.createElement('div'));
     form.closest('.modal')?.classList.remove('small');
     const guardadas = ubicacion.id ? await D.api(`${P}/ubicaciones`).catch(() => []) : [];
     const g = guardadas.find((x) => x.id === ubicacion.id);
@@ -210,9 +211,10 @@
   // =====================================================================
   // Formulario de envío: vista previa de la ruta y km
   // =====================================================================
-  D.extender('envio.form', async ({ form, cont, estado }) => {
+  D.extender('envio.form', async ({ form, cont: hueco, estado }) => {
     const c = await config().catch(() => null);
-    if (!c || !cont) return;
+    if (!c || !hueco) return;
+    const cont = hueco.appendChild(document.createElement('div'));
     const r = (estado.__ruta ||= { opciones: { ...c.opciones }, res: null, km: '', firma: '' });
     cont.innerHTML = `<section class="card form-card rutas-panel"><div class="form-card-head"><strong>Ruta y kilómetros</strong></div><div class="form-card-body">
       ${c.configurado ? '' : `<div class="rutas-aviso">Falta configurar el proveedor de mapas${D.state.user?.rol === 'admin' ? ' en <a href="#mapas-rutas">Mapas y rutas</a>' : ' (avisa al administrador)'}. Puedes poner los km a mano.</div>`}
@@ -275,10 +277,11 @@
   // =====================================================================
   // Detalle del envío: km guardados, mapa, corrección y recálculo
   // =====================================================================
-  D.extender('envio.detalle', async ({ cont, doc }) => {
-    if (!cont) return;
+  D.extender('envio.detalle', async ({ cont: hueco, doc }) => {
+    if (!hueco) return;
     const c = await config().catch(() => null);
     if (!c) return;
+    const cont = hueco.insertBefore(document.createElement('div'), hueco.firstChild);
     const puede = D.perm(`${doc.tipo}_crear`) && ['borrador', 'emitido'].includes(doc.estado);
     const pintar = async (ruta) => {
       cont.innerHTML = `<div class="rutas-detalle"><div class="rutas-ubi-cab">${D.I('route')} <strong>Ruta</strong>
