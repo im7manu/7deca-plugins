@@ -1,7 +1,7 @@
 {
   "id": "rutas",
   "nombre": "7Ruta",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "descripcion": "Mapas en 7DeCA: busca las ubicaciones o pon sus coordenadas, muestra la ruta de cada envío (camión o coche, evitando peajes, autopistas o ferris) y guarda los km para facturarlos por kilómetro en 7Factura. OpenRouteService por defecto o Google Maps con tu clave.",
   "autor": "im7manu",
   "licencia": "MIT",

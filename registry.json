@@ -58,12 +58,12 @@
     {
       "id": "rutas",
       "nombre": "7Ruta",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "descripcion": "Mapas en 7DeCA: busca las ubicaciones o pon sus coordenadas, muestra la ruta de cada envío (camión o coche, evitando peajes, autopistas o ferris) y guarda los km para facturarlos por kilómetro en 7Factura. OpenRouteService por defecto o Google Maps con tu clave.",
       "autor": "im7manu",
       "app_min": "1.5.0",
-      "url": "https://github.com/im7manu/7deca-plugins/releases/download/rutas-v1.0.0/rutas-1.0.0.tar.gz",
-      "sha256": "5bf2f220289bdc602ad8753ad8fc4b2edb3b130b0ade5435c68aad3be6946e72",
+      "url": "https://github.com/im7manu/7deca-plugins/releases/download/rutas-v1.0.1/rutas-1.0.1.tar.gz",
+      "sha256": "a6f11874bc3b0feb6a90d7b4b0a2e49fe8be0b6b37b3b359df2b28daa653cab1",
       "repo": "https://github.com/im7manu/7deca-plugins/tree/main/rutas"
     },
     {
